@@ -1,0 +1,301 @@
+﻿<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
+<title>Part Sales Report Demo</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+h2
+	{mso-style-link:"Заголовок 2 Знак";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:"Cambria","serif";
+	color:#4F81BD;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{mso-style-link:"Название Знак";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:15.0pt;
+	margin-left:0cm;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Cambria","serif";
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoTitleCxSpFirst, li.MsoTitleCxSpFirst, div.MsoTitleCxSpFirst
+	{mso-style-link:"Название Знак";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Cambria","serif";
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoTitleCxSpMiddle, li.MsoTitleCxSpMiddle, div.MsoTitleCxSpMiddle
+	{mso-style-link:"Название Знак";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Cambria","serif";
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoTitleCxSpLast, li.MsoTitleCxSpLast, div.MsoTitleCxSpLast
+	{mso-style-link:"Название Знак";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:15.0pt;
+	margin-left:0cm;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Cambria","serif";
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoIntenseQuote, li.MsoIntenseQuote, div.MsoIntenseQuote
+	{mso-style-link:"Выделенная цитата Знак";
+	margin-top:10.0pt;
+	margin-right:46.8pt;
+	margin-bottom:14.0pt;
+	margin-left:46.8pt;
+	line-height:115%;
+	border:none;
+	padding:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.MsoSubtleEmphasis
+	{color:gray;
+	font-style:italic;}
+span.a
+	{mso-style-name:"Название Знак";
+	mso-style-link:Название;
+	font-family:"Cambria","serif";
+	color:#17365D;
+	letter-spacing:.25pt;}
+span.2
+	{mso-style-name:"Заголовок 2 Знак";
+	mso-style-link:"Заголовок 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.a0
+	{mso-style-name:"Выделенная цитата Знак";
+	mso-style-link:"Выделенная цитата";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+.MsoPapDefault
+	{margin-bottom:10.0pt;
+	line-height:115%;}
+@page Section1
+	{size:612.0pt 792.0pt;
+	margin:2.0cm 42.5pt 2.0cm 3.0cm;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US>
+
+<div class=Section1>
+
+<div style='border:none;border-bottom:solid #4F81BD 1.0pt;padding:0cm 0cm 4.0pt 0cm'>
+
+<p class=MsoTitle style='margin-bottom:0cm;margin-bottom:.0001pt'>Part Sales
+Report</p>
+
+</div>
+
+<p class=MsoNormal align=right style='text-align:right'><span
+class=MsoSubtleEmphasis>Created \{Now\} using Kryvich’s Delphi Reporter version \{version\}</span></p>
+
+<p class=MsoNormal>\{for PartSales.PartNo\}</p>
+
+<h2>Part           #\{PartSales.PartNo\}  \{PartSales.Description\}</h2>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><strong><span
+style='font-family:"Calibri","sans-serif"'>Vendor:         #\{PartSales.VendorNo\}       \{PartSales.VendorName\}</span></strong></p>
+
+<p class=MsoNormal><strong><span style='font-family:"Calibri","sans-serif"'>List
+price:      \{PartSales.ListPrice\}</span></strong></p>
+
+<div style='border:none;border-bottom:solid #4F81BD 1.0pt;padding:0cm 0cm 4.0pt 0cm;
+margin-left:46.8pt;margin-right:46.8pt'>
+
+<p class=MsoIntenseQuote style='margin-top:10.0pt;margin-right:0cm;margin-bottom:
+0pt;margin-left:0cm'>Sales history</p>
+
+</div>
+<br>
+
+<table class=MsoTableMediumShading2Accent1 border=1 cellspacing=0
+ cellpadding=0 style='margin-left:46.8pt;border-collapse:collapse;border:none'>
+ <tr>
+  <td width=87 valign=top style='width:64.95pt;border-top:solid windowtext 2.25pt;
+  border-left:none;border-bottom:solid windowtext 2.25pt;border-right:none;
+  background:#4F81BD;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span style='color:white'>Year</span></b></p>
+  </td>
+  <td width=123 valign=top style='width:92.1pt;border-top:solid windowtext 2.25pt;
+  border-left:none;border-bottom:solid windowtext 2.25pt;border-right:none;
+  background:#4F81BD;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span style='color:white'>Order No</span></b></p>
+  </td>
+  <td width=131 valign=top style='width:98.6pt;border-top:solid windowtext 2.25pt;
+  border-left:none;border-bottom:solid windowtext 2.25pt;border-right:none;
+  background:#4F81BD;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span style='color:white'>Sale Date</span></b></p>
+  </td>
+  <td width=76 valign=top style='width:57.35pt;border-top:solid windowtext 2.25pt;
+  border-left:none;border-bottom:solid windowtext 2.25pt;border-right:none;
+  background:#4F81BD;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=right style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'><b><span style='color:white'>Qty</span></b></p>
+  </td>
+  <td width=113 valign=top style='width:3.0cm;border-top:solid windowtext 2.25pt;
+  border-left:none;border-bottom:solid windowtext 2.25pt;border-right:none;
+  background:#4F81BD;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=right style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'><b><span style='color:white'>Amount\{for
+  PartSales.SaleYear\}</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=87 valign=top style='width:64.95pt;border:none;background:#4F81BD;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span style='color:white'>\{PartSales.SaleYear\}</span></b></p>
+  </td>
+  <td width=123 valign=top style='width:92.1pt;border:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'>&nbsp;</p>
+  </td>
+  <td width=131 valign=top style='width:98.6pt;border:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'>&nbsp;</p>
+  </td>
+  <td width=76 valign=top style='width:57.35pt;border:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=right style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'>&nbsp;</p>
+  </td>
+  <td width=113 valign=top style='width:3.0cm;border:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=right style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'>\{for PartSales\}</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=87 valign=top style='width:64.95pt;border:none;border-bottom:double #4F81BD 1.5pt;
+  background:#4F81BD;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span style='color:white'>&nbsp;</span></b></p>
+  </td>
+  <td width=123 valign=top style='width:92.1pt;border:none;border-bottom:double #4F81BD 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'>\{PartSales.OrderNo\}</p>
+  </td>
+  <td width=131 valign=top style='width:98.6pt;border:none;border-bottom:double #4F81BD 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'>\{PartSales.SaleDate\}</p>
+  </td>
+  <td width=76 valign=top style='width:57.35pt;border:none;border-bottom:double #4F81BD 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=right style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'>\{PartSales.Qty\}</p>
+  </td>
+  <td width=113 valign=top style='width:3.0cm;border:none;border-bottom:double #4F81BD 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=right style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'>\{PartSales.Amount\}\{end\}</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=87 valign=top style='width:64.95pt;border:none;border-bottom:solid black 2.25pt;
+  background:#4F81BD;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b>&nbsp;</b></p>
+  </td>
+  <td width=123 valign=top style='width:92.1pt;border:none;border-bottom:solid black 2.25pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b>Annual sales:</b></p>
+  </td>
+  <td width=131 valign=top style='width:98.6pt;border:none;border-bottom:solid black 2.25pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b>&nbsp;</b></p>
+  </td>
+  <td width=76 valign=top style='width:57.35pt;border:none;border-bottom:solid black 2.25pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=right style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'><b>\{Sum(PartSales.Qty)\}</b></p>
+  </td>
+  <td width=113 valign=top style='width:3.0cm;border:none;border-bottom:solid black 2.25pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=right style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'><b>\{Sum(PartSales.Amount)\}\{end\}</b></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><strong><span
+style='font-family:"Calibri","sans-serif"'>Best order sales:          </span></strong><b>\{Max(PartSales.Amount)\}<strong><span
+style='font-family:"Calibri","sans-serif"'></span></strong></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><strong><span
+style='font-family:"Calibri","sans-serif"'>Total qty:                         \{Sum(PartSales.Qty)\}</span></strong></p>
+
+<p class=MsoNormal><strong><span style='font-family:"Calibri","sans-serif"'>Total
+amount:               \{Sum(PartSales.Amount)\}</span></strong></p>
+
+<p class=MsoNormal>\{end\}</p>
+
+<h2>Grand total:          \{Sum(PartSales.Amount)\}</h2>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

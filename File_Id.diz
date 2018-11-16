@@ -1,0 +1,18 @@
+Kryvich's Delphi Reporter 3.1
+Reporting tool for Embarcadero's Delphi.
+- TXT, RTF, HTML and XML report templates
+- Creates RTF, HTML and XML reports
+- Direct access to RTF files (MS Word
+  not required)
+- Direct access to XML files (MS Excel
+  not required)
+- Gets data from any TDataSet descendant
+- Nested datasets (cycles) supported
+- Open source software, licensed under
+  GNU Lesser General Public License v3
+  or later (see lgpl-3.0.html)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Copyright (C) 2007 - 2018 Kryvich
+https://sites.google.com/site/kryvich/reporter
+https://github.com/Kryuski/kryvich-delphi-reporter
+kryvich@gmail.com

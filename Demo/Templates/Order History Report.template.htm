@@ -1,0 +1,711 @@
+﻿<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
+<title>Order History Report</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Century Gothic";
+	panose-1:2 11 5 2 2 2 2 2 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+h1
+	{mso-style-link:"Заголовок 1 Знак";
+	margin-top:24.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria","serif";
+	color:#365F91;}
+h2
+	{mso-style-link:"Заголовок 2 Знак";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:"Cambria","serif";
+	color:#4F81BD;}
+h3
+	{mso-style-link:"Заголовок 3 Знак";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";
+	color:#4F81BD;}
+h4
+	{mso-style-link:"Заголовок 4 Знак";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-style:italic;}
+h5
+	{mso-style-link:"Заголовок 5 Знак";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-weight:normal;}
+h6
+	{mso-style-link:"Заголовок 6 Знак";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-weight:normal;
+	font-style:italic;}
+p.MsoHeading7, li.MsoHeading7, div.MsoHeading7
+	{mso-style-link:"Заголовок 7 Знак";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";
+	color:#404040;
+	font-style:italic;}
+p.MsoHeading8, li.MsoHeading8, div.MsoHeading8
+	{mso-style-link:"Заголовок 8 Знак";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:10.0pt;
+	font-family:"Cambria","serif";
+	color:#4F81BD;}
+p.MsoHeading9, li.MsoHeading9, div.MsoHeading9
+	{mso-style-link:"Заголовок 9 Знак";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:10.0pt;
+	font-family:"Cambria","serif";
+	color:#404040;
+	font-style:italic;}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{mso-style-link:"Верхний колонтитул Знак";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{mso-style-link:"Нижний колонтитул Знак";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoCaption, li.MsoCaption, div.MsoCaption
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	font-size:9.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#4F81BD;
+	font-weight:bold;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{mso-style-link:"Название Знак";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:15.0pt;
+	margin-left:0cm;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Cambria","serif";
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoTitleCxSpFirst, li.MsoTitleCxSpFirst, div.MsoTitleCxSpFirst
+	{mso-style-link:"Название Знак";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Cambria","serif";
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoTitleCxSpMiddle, li.MsoTitleCxSpMiddle, div.MsoTitleCxSpMiddle
+	{mso-style-link:"Название Знак";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Cambria","serif";
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoTitleCxSpLast, li.MsoTitleCxSpLast, div.MsoTitleCxSpLast
+	{mso-style-link:"Название Знак";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:15.0pt;
+	margin-left:0cm;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Cambria","serif";
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoClosing, li.MsoClosing, div.MsoClosing
+	{mso-style-link:"Прощание Знак";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:48.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoSignature, li.MsoSignature, div.MsoSignature
+	{mso-style-link:"Подпись Знак";
+	margin-top:48.0pt;
+	margin-right:0cm;
+	margin-bottom:12.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoBodyText, li.MsoBodyText, div.MsoBodyText
+	{mso-style-link:"Основной текст Знак";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoSubtitle, li.MsoSubtitle, div.MsoSubtitle
+	{mso-style-link:"Подзаголовок Знак";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:12.0pt;
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	letter-spacing:.75pt;
+	font-style:italic;}
+p.MsoSalutation, li.MsoSalutation, div.MsoSalutation
+	{mso-style-link:"Приветствие Знак";
+	margin-top:24.0pt;
+	margin-right:0cm;
+	margin-bottom:12.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoDate, li.MsoDate, div.MsoDate
+	{mso-style-link:"Дата Знак";
+	margin-top:48.0pt;
+	margin-right:0cm;
+	margin-bottom:24.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoBodyText2, li.MsoBodyText2, div.MsoBodyText2
+	{mso-style-link:"Основной текст 2 Знак";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+strong
+	{font-family:"Times New Roman","serif";}
+em
+	{font-family:"Times New Roman","serif";}
+p.MsoNoSpacing, li.MsoNoSpacing, div.MsoNoSpacing
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoQuote, li.MsoQuote, div.MsoQuote
+	{mso-style-link:"Цитата 2 Знак";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:black;
+	font-style:italic;}
+p.MsoIntenseQuote, li.MsoIntenseQuote, div.MsoIntenseQuote
+	{mso-style-link:"Выделенная цитата Знак";
+	margin-top:10.0pt;
+	margin-right:46.8pt;
+	margin-bottom:14.0pt;
+	margin-left:46.8pt;
+	line-height:115%;
+	border:none;
+	padding:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.MsoSubtleEmphasis
+	{font-family:"Times New Roman","serif";
+	color:gray;
+	font-style:italic;}
+span.MsoIntenseEmphasis
+	{font-family:"Times New Roman","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.MsoSubtleReference
+	{font-family:"Times New Roman","serif";
+	font-variant:small-caps;
+	color:#C0504D;
+	text-decoration:underline;}
+span.MsoIntenseReference
+	{font-family:"Times New Roman","serif";
+	font-variant:small-caps;
+	color:#C0504D;
+	letter-spacing:.25pt;
+	font-weight:bold;
+	text-decoration:underline;}
+span.MsoBookTitle
+	{font-family:"Times New Roman","serif";
+	font-variant:small-caps;
+	letter-spacing:.25pt;
+	font-weight:bold;}
+p.MsoTocHeading, li.MsoTocHeading, div.MsoTocHeading
+	{margin-top:24.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.1
+	{mso-style-name:"Заголовок 1 Знак";
+	mso-style-link:"Заголовок 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.2
+	{mso-style-name:"Заголовок 2 Знак";
+	mso-style-link:"Заголовок 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.3
+	{mso-style-name:"Заголовок 3 Знак";
+	mso-style-link:"Заголовок 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.4
+	{mso-style-name:"Заголовок 4 Знак";
+	mso-style-link:"Заголовок 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.5
+	{mso-style-name:"Заголовок 5 Знак";
+	mso-style-link:"Заголовок 5";
+	font-family:"Cambria","serif";
+	color:#243F60;}
+span.6
+	{mso-style-name:"Заголовок 6 Знак";
+	mso-style-link:"Заголовок 6";
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-style:italic;}
+span.7
+	{mso-style-name:"Заголовок 7 Знак";
+	mso-style-link:"Заголовок 7";
+	font-family:"Cambria","serif";
+	color:#404040;
+	font-style:italic;}
+span.8
+	{mso-style-name:"Заголовок 8 Знак";
+	mso-style-link:"Заголовок 8";
+	font-family:"Cambria","serif";
+	color:#4F81BD;}
+span.9
+	{mso-style-name:"Заголовок 9 Знак";
+	mso-style-link:"Заголовок 9";
+	font-family:"Cambria","serif";
+	color:#404040;
+	font-style:italic;}
+p.SenderAddress, li.SenderAddress, div.SenderAddress
+	{mso-style-name:"Sender Address";
+	margin-top:3.0pt;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	text-align:right;
+	line-height:115%;
+	font-size:8.0pt;
+	font-family:"Century Gothic","sans-serif";}
+p.SenderName, li.SenderName, div.SenderName
+	{mso-style-name:"Sender Name";
+	margin-top:3.0pt;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	text-align:right;
+	line-height:115%;
+	border:none;
+	padding:0cm;
+	font-size:16.0pt;
+	font-family:"Century Gothic","sans-serif";
+	font-weight:bold;}
+span.a
+	{mso-style-name:"Основной текст Знак";
+	mso-style-link:"Основной текст";
+	font-family:"Arial","sans-serif";}
+span.a0
+	{mso-style-name:"Дата Знак";
+	mso-style-link:Дата;
+	font-family:"Arial","sans-serif";}
+p.RecipientAddress, li.RecipientAddress, div.RecipientAddress
+	{mso-style-name:"Recipient Address";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+span.a1
+	{mso-style-name:"Приветствие Знак";
+	mso-style-link:Приветствие;
+	font-family:"Arial","sans-serif";}
+span.a2
+	{mso-style-name:"Верхний колонтитул Знак";
+	mso-style-link:"Верхний колонтитул";
+	font-family:"Arial","sans-serif";}
+span.a3
+	{mso-style-name:"Нижний колонтитул Знак";
+	mso-style-link:"Нижний колонтитул";
+	font-family:"Arial","sans-serif";}
+span.a4
+	{mso-style-name:"Прощание Знак";
+	mso-style-link:Прощание;
+	font-family:"Arial","sans-serif";}
+span.a5
+	{mso-style-name:"Подпись Знак";
+	mso-style-link:Подпись;
+	font-family:"Arial","sans-serif";}
+p.ccEnclosure, li.ccEnclosure, div.ccEnclosure
+	{mso-style-name:"cc\:\/Enclosure";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:12.0pt;
+	margin-left:72.0pt;
+	text-indent:-72.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+span.20
+	{mso-style-name:"Основной текст 2 Знак";
+	mso-style-link:"Основной текст 2";
+	font-family:"Arial","sans-serif";}
+p.ContactInfo, li.ContactInfo, div.ContactInfo
+	{mso-style-name:"Contact Info";
+	margin-top:3.0pt;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	text-align:right;
+	line-height:115%;
+	font-size:8.0pt;
+	font-family:"Century Gothic","sans-serif";}
+span.a6
+	{mso-style-name:"Название Знак";
+	mso-style-link:Название;
+	font-family:"Cambria","serif";
+	color:#17365D;
+	letter-spacing:.25pt;}
+span.a7
+	{mso-style-name:"Подзаголовок Знак";
+	mso-style-link:Подзаголовок;
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	letter-spacing:.75pt;
+	font-style:italic;}
+span.21
+	{mso-style-name:"Цитата 2 Знак";
+	mso-style-link:"Цитата 2";
+	font-family:"Times New Roman","serif";
+	color:black;
+	font-style:italic;}
+span.a8
+	{mso-style-name:"Выделенная цитата Знак";
+	mso-style-link:"Выделенная цитата";
+	font-family:"Times New Roman","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+.MsoChpDefault
+	{font-size:11.0pt;}
+.MsoPapDefault
+	{margin-bottom:10.0pt;
+	line-height:115%;}
+ /* Page Definitions */
+ @page Section1
+	{size:612.0pt 792.0pt;
+	margin:48.25pt 90.0pt 72.0pt 90.0pt;}
+div.Section1
+	{page:Section1;
+	padding-left:10%;
+	padding-right:10%;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US>
+
+<div class=Section1>
+
+<p class=MsoQuote align=right style='margin-bottom:0cm;margin-bottom:.0001pt;
+text-align:right'>Kryvich’s Delphi Reporter version \{Version\}</p>
+
+<p class=MsoQuote align=right style='margin-bottom:0cm;margin-bottom:.0001pt;
+text-align:right'>Report created: \{Now\}</p>
+
+<h1 align=center style='margin-bottom:24.0pt;text-align:center;line-height:
+normal'>ORDER HISTORY REPORT\{for OrderHistory.CustNo\}</h1>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0cm 0cm 1.0pt 0cm'>
+
+<p class=SenderName>\{OrderHistory.Company\}</p>
+
+</div>
+
+<p class=ContactInfo>\{OrderHistory.Addr1\} \{OrderHistory.Addr2\}, \{OrderHistory.City\},
+\{OrderHistory.State\} \{OrderHistory.Zip\} \{OrderHistory.Country\}</p>
+
+<div align=center>
+
+<table class=MsoTableLightShadingAccent1 border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+ <tr>
+  <td valign=top style='width:76.3pt;border-top:solid #4F81BD 1.0pt;
+  border-left:none;border-bottom:solid #4F81BD 1.0pt;border-right:none;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoBodyText2 style='margin:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span style='color:#365F91'>No</span></b></p>
+  </td>
+  <td valign=top style='width:4.0cm;border-top:solid #4F81BD 1.0pt;
+  border-left:none;border-bottom:solid #4F81BD 1.0pt;border-right:none;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoBodyText2 style='margin:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span style='color:#365F91'>Order No</span></b></p>
+  </td>
+  <td valign=top style='width:78.05pt;border-top:solid #4F81BD 1.0pt;
+  border-left:none;border-bottom:solid #4F81BD 1.0pt;border-right:none;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoBodyText2 style='margin:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span style='color:#365F91'>Sale Date</span></b></p>
+  </td>
+  <td valign=top style='width:175.05pt;border-top:solid #4F81BD 1.0pt;
+  border-left:none;border-bottom:solid #4F81BD 1.0pt;border-right:none;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoBodyText2 align=right style='margin:0cm;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'><b><span style='color:#365F91'>Amount
+  Paid\{for OrderHistory\}</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td valign=top style='width:76.3pt;border:none;border-bottom:solid #4F81BD 1.0pt;
+  background:#D3DFEE;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoBodyText2 style='margin:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span style='color:#365F91'>\{Count(OrderHistory.*)\}</span></p>
+  </td>
+  <td valign=top style='width:4.0cm;border:none;border-bottom:solid #4F81BD 1.0pt;
+  background:#D3DFEE;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoBodyText2 style='margin:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span style='color:#365F91'>\{OrderHistory.OrderNo\}</span></b></p>
+  </td>
+  <td valign=top style='width:78.05pt;border:none;border-bottom:solid #4F81BD 1.0pt;
+  background:#D3DFEE;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoBodyText2 style='margin:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span style='color:#365F91'>\{OrderHistory.SaleDate\}</span></p>
+  </td>
+  <td valign=top style='width:175.05pt;border:none;border-bottom:
+  solid #4F81BD 1.0pt;background:#D3DFEE;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoBodyText2 align=right style='margin:0cm;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'><span style='color:#365F91'>\{OrderHistory.AmountPaid\}\{end\}</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=3 valign=top style='width:267.75pt;border:none;
+  border-bottom:solid #4F81BD 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoBodyText2 style='margin:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span style='color:#365F91'>TOTAL</span></b></p>
+  </td>
+  <td valign=top style='width:175.05pt;border:none;border-bottom:
+  solid #4F81BD 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoBodyText2 align=right style='margin:0cm;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'><b><span style='color:#365F91'>\{Sum(OrderHistory.AmountPaid)\}</span></b></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'>&nbsp;</p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'>Count of
+orders:        \{Count(OrderHistory.*)\}</p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'>Smallest
+order:          \{Min(OrderHistory.AmountPaid)\}</p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'>Biggest
+order:             \{Max(OrderHistory.AmountPaid)\}</p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'>Average
+order:          \{Avg(OrderHistory.AmountPaid)\}</p>
+
+<p class=MsoBodyText>Last Invoice Date:     \{Max(OrderHistory.SaleDate)\}</p>
+
+<p class=MsoBodyText>\{end\}</p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0cm 0cm 1.0pt 0cm'>
+
+<p class=SenderName>Summary</p>
+
+</div>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'><b>Grand
+total:                \{Sum(OrderHistory.AmountPaid)\}</b></p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'><b>Count
+of all orders:  \{Count(OrderHistory.*)\}</b></p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'><b>Smallest
+order:          \{Min(OrderHistory.AmountPaid)\}</b></p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'><b>Biggest
+order:            \{Max(OrderHistory.AmountPaid)\}</b></p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'><b>Average
+order:          \{Avg(OrderHistory.AmountPaid)\}</b></p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'><b>Last
+Invoice Date:     \{Max(OrderHistory.SaleDate)\}</b></p>
+
+<p class=MsoBodyText>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
