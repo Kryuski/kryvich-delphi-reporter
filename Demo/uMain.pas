@@ -43,11 +43,12 @@ type
     procedure bCloseClick(Sender: TObject);
     procedure imgDelphiLogoClick(Sender: TObject);
   private
-    SumOrderSubtotal: real;
+    SumOrderSubtotal: Real;
 
     procedure CreateReport(Print: Boolean);
     procedure PopulateTemplateList;
-    function GetCustomTagValueForInvoice(const Tag: AnsiString; var Value: string): Boolean;
+    function GetCustomTagValueForInvoice(const TagName: string;
+      out Value: string): Boolean;
   public
   end;
 
@@ -56,7 +57,7 @@ var
 
 implementation
 
-uses ShellAPI, uDbFreeReporter;
+uses ShellAPI, KDR.DbReporter;
 
 {$R *.dfm}
 
@@ -71,16 +72,16 @@ var
 begin
   TemplatePath := ExtractFilePath(Application.ExeName) + 'Templates\'
     + lbTemplates.Items[lbTemplates.ItemIndex];
-  ShellExecute(Application.MainForm.Handle, nil, pChar(TemplatePath),
+  ShellExecute(Application.MainForm.Handle, nil, PChar(TemplatePath),
     nil, nil, SW_MAXIMIZE);
 end;
 
 procedure TfReporterDemoMain.CreateReport(Print: Boolean);
 const
-  sOperation: array[Boolean] of string = ('open', 'print');
+  OPERATION: array[Boolean] of string = ('open', 'print');
 var
   TemplateName, OutputName, sTemplate: string;
-  Reporter: TDbFreeReporter;
+  Reporter: TDbReporter;
 begin
   if lbTemplates.Count <= 0 then
     Exit;
@@ -90,11 +91,11 @@ begin
   OutputName := ExtractFilePath(Application.ExeName) + 'Output\'
     + StringReplace(sTemplate, '.template.', '.', [rfIgnoreCase]);
 
-  Reporter := TDbFreeReporter.Create;
+  Reporter := TDbReporter.Create;
 
-  if pos('Simple Customer List Report', sTemplate) = 1 then
+  if Pos('Simple Customer List Report', sTemplate) = 1 then
     Customer.Open
-  else if pos('Invoice Report', sTemplate) = 1 then begin
+  else if Pos('Invoice Report', sTemplate) = 1 then begin
     Orders.Open;
     Customer.Open;
     Employee.Open;
@@ -103,10 +104,10 @@ begin
     Reporter.OnGetCustomTagValue := GetCustomTagValueForInvoice;
     SumOrderSubtotal := 0;
     Orders.Locate('OrderNo', 1004, []);
-  end else if pos('Order History Report', sTemplate) = 1 then begin
+  end else if Pos('Order History Report', sTemplate) = 1 then begin
     OrderHistory.Open;
     Employee.Open;
-  end else if pos('Part Sales Report', sTemplate) = 1 then begin
+  end else if Pos('Part Sales Report', sTemplate) = 1 then begin
     PartSales.ConnectionString :=
       'Provider=Microsoft.Jet.OLEDB.4.0;'+
       'Data Source=dbdemos.mdb'; // <--- Change path to the database if needed
@@ -114,21 +115,23 @@ begin
   end;
 
   try
-    Reporter.AddDataSet(Orders);
-    Reporter.AddDataSet(Customer);
-    Reporter.AddDataSet(Employee);
-    Reporter.AddDataSet(Items);
-    Reporter.AddDataSet(Parts);
-    Reporter.AddDataSet(OrderHistory);
-    Reporter.AddDataSet(PartSales);
+    Reporter.RegisterDataSet(Orders);
+    Reporter.RegisterDataSet(Customer);
+    Reporter.RegisterDataSet(Employee);
+    Reporter.RegisterDataSet(Items);
+    Reporter.RegisterDataSet(Parts);
+    Reporter.RegisterDataSet(OrderHistory);
+    Reporter.RegisterDataSet(PartSales);
     Reporter.CreateReport(TemplateName, OutputName);
-    if Application.MessageBox(pChar('Report created and saved in file'#13+
-      '"' + OutputName + '".'#13#13'Do you want to ' + sOperation[Print] + ' it?'),
+    if Application.MessageBox(PChar(Format(
+      'Report created and saved in file'#13+
+      '"%s".'#13#13'Do you want to %s it?',
+      [OutputName, OPERATION[Print]])),
       'Confirm', MB_ICONQUESTION+MB_YESNO+MB_DEFBUTTON1+MB_APPLMODAL) <> mrYes
     then
       Exit;
-    ShellExecute(Application.MainForm.Handle, pChar(sOperation[Print]), pChar(OutputName),
-      nil, nil, SW_MAXIMIZE);
+    ShellExecute(Application.MainForm.Handle, PChar(OPERATION[Print]),
+      PChar(OutputName), nil, nil, SW_MAXIMIZE);
   finally
     Reporter.Free;
     Orders.Close;
@@ -156,19 +159,19 @@ begin
   PopulateTemplateList;
 end;
 
-function TfReporterDemoMain.GetCustomTagValueForInvoice(const Tag: AnsiString;
-  var Value: string): Boolean;
+function TfReporterDemoMain.GetCustomTagValueForInvoice(const TagName: string;
+  out Value: string): Boolean;
 var
-  r: real;
+  r: Real;
 begin
   Result := True;
-  if Tag = 'PartTotal' then begin
+  if TagName = 'PartTotal' then begin
     r := Items['Qty'] * Parts['ListPrice'] * (100 - Items['Discount']) / 100;
     SumOrderSubtotal := SumOrderSubtotal + r;
     Value := Format('%m', [r]);
-  end else if Tag = 'OrderSubtotal' then
+  end else if TagName = 'OrderSubtotal' then
     Value := Format('%m', [SumOrderSubtotal])
-  else if Tag = 'OrderTotal' then begin
+  else if TagName = 'OrderTotal' then begin
     r := SumOrderSubtotal * (1 + Orders['TaxRate'] / 100) + Orders['Freight'];
     Value := Format('%m', [r]);
   end else
@@ -178,7 +181,7 @@ end;
 procedure TfReporterDemoMain.imgDelphiLogoClick(Sender: TObject);
 begin
   ShellExecute(Application.MainForm.Handle, '',
-    pChar('https://www.embarcadero.com/products/delphi'), nil, nil, SW_MAXIMIZE);
+    PChar('https://www.embarcadero.com/products/delphi'), nil, nil, SW_MAXIMIZE);
 end;
 
 procedure TfReporterDemoMain.lbTemplatesDblClick(Sender: TObject);
@@ -189,25 +192,24 @@ end;
 procedure TfReporterDemoMain.PopulateTemplateList;
 var
   tpath: string;
-  sr: TSearchRec;
+
+  procedure AddTemplates(const Path: string);
+  var
+    sr: TSearchRec;
+  begin
+    if FindFirst(tpath + Path, faAnyFile - faDirectory, sr) = 0 then begin
+      repeat
+        lbTemplates.Items.Add(sr.Name);
+      until FindNext(sr) <> 0;
+      FindClose(sr);
+    end;
+  end;
+
 begin
   lbTemplates.Clear;
   tpath := ExtractFilePath(Application.ExeName) + 'Templates\';
-
-  if FindFirst(tpath + '*.template.rtf', faAnyFile - faDirectory, sr) = 0 then begin
-    repeat
-      lbTemplates.Items.Add(sr.Name);
-    until FindNext(sr) <> 0;
-    FindClose(sr);
-  end;
-
-  if FindFirst(tpath + '*.template.htm', faAnyFile - faDirectory, sr) = 0 then begin
-    repeat
-      lbTemplates.Items.Add(sr.Name);
-    until FindNext(sr) <> 0;
-    FindClose(sr);
-  end;
-
+  AddTemplates('*.template.rtf');
+  AddTemplates('*.template.htm');
   lbTemplates.Sorted := True;
   if lbTemplates.Count > 0 then
     lbTemplates.ItemIndex := 0;

@@ -1,42 +1,57 @@
 object fReporterDemoMain: TfReporterDemoMain
   Left = 0
   Top = 0
+  Margins.Left = 5
+  Margins.Top = 5
+  Margins.Right = 5
+  Margins.Bottom = 5
   BorderStyle = bsDialog
   Caption = 'Kryvich'#39's Delphi Reporter - Demo program'
-  ClientHeight = 209
-  ClientWidth = 504
+  ClientHeight = 366
+  ClientWidth = 882
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -19
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
   OnShow = FormShow
-  PixelsPerInch = 96
-  TextHeight = 13
+  PixelsPerInch = 168
+  TextHeight = 23
   object gbTemplates: TGroupBox
-    Left = 8
-    Top = 8
-    Width = 377
-    Height = 193
+    Left = 14
+    Top = 14
+    Width = 660
+    Height = 338
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
     Caption = 'Demo report templates:'
     TabOrder = 0
     object lbTemplates: TListBox
-      Left = 8
-      Top = 16
-      Width = 361
-      Height = 129
-      ItemHeight = 13
+      Left = 14
+      Top = 28
+      Width = 632
+      Height = 226
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
+      ItemHeight = 23
       TabOrder = 0
       OnDblClick = lbTemplatesDblClick
     end
     object bCreateReport: TBitBtn
-      Left = 8
-      Top = 151
-      Width = 113
-      Height = 34
+      Left = 14
+      Top = 264
+      Width = 198
+      Height = 60
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
       Caption = 'Create report'
       Default = True
       Glyph.Data = {
@@ -100,10 +115,14 @@ object fReporterDemoMain: TfReporterDemoMain
       OnClick = bCreateReportClick
     end
     object bPrintReport: TBitBtn
-      Left = 127
-      Top = 151
-      Width = 114
-      Height = 34
+      Left = 222
+      Top = 264
+      Width = 200
+      Height = 60
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
       Caption = 'Print report'
       Glyph.Data = {
         F6060000424DF606000000000000360000002800000018000000180000000100
@@ -166,10 +185,14 @@ object fReporterDemoMain: TfReporterDemoMain
       OnClick = bPrintReportClick
     end
     object bViewTemplate: TBitBtn
-      Left = 247
-      Top = 151
-      Width = 122
-      Height = 34
+      Left = 432
+      Top = 264
+      Width = 214
+      Height = 60
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
       Caption = 'View template'
       Glyph.Data = {
         F6060000424DF606000000000000360000002800000018000000180000000100
@@ -233,17 +256,25 @@ object fReporterDemoMain: TfReporterDemoMain
     end
   end
   object GroupBox1: TGroupBox
-    Left = 391
-    Top = 8
-    Width = 106
-    Height = 193
+    Left = 684
+    Top = 14
+    Width = 186
+    Height = 338
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
     TabOrder = 1
     object imgDelphiLogo: TImage
-      Left = 19
-      Top = 27
+      Left = 33
+      Top = 47
       Width = 67
       Height = 90
       Cursor = crHandPoint
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
       AutoSize = True
       Picture.Data = {
         07544269746D61701E1C0000424D1E1C00000000000036040000280000004300
@@ -476,10 +507,14 @@ object fReporterDemoMain: TfReporterDemoMain
       OnClick = imgDelphiLogoClick
     end
     object bClose: TBitBtn
-      Left = 8
-      Top = 151
-      Width = 86
-      Height = 34
+      Left = 14
+      Top = 264
+      Width = 151
+      Height = 60
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
       Cancel = True
       Caption = 'Close'
       Glyph.Data = {
@@ -545,13 +580,13 @@ object fReporterDemoMain: TfReporterDemoMain
   end
   object dsOrders: TDataSource
     DataSet = Orders
-    Left = 56
-    Top = 64
+    Left = 126
+    Top = 148
   end
   object dsItems: TDataSource
     DataSet = Items
-    Left = 120
-    Top = 64
+    Left = 316
+    Top = 148
   end
   object PartSales: TADOQuery
     ConnectionString = 'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=dbdemos.mdb'
@@ -568,8 +603,8 @@ object fReporterDemoMain: TfReporterDemoMain
         'dorNo = parts.VendorNo) INNER JOIN items ON parts.PartNo = items' +
         '.PartNo) ON orders.OrderNo = items.OrderNo'
       'ORDER BY parts.Description, Year([SaleDate]), orders.OrderNo;')
-    Left = 224
-    Top = 32
+    Left = 504
+    Top = 46
     object PartSalesPartNo: TFloatField
       FieldName = 'PartNo'
     end
@@ -617,14 +652,14 @@ object fReporterDemoMain: TfReporterDemoMain
     PacketRecords = 0
     Params = <>
     Left = 24
-    Top = 32
+    Top = 46
   end
   object Orders: TClientDataSet
     Aggregates = <>
     FileName = 'orders.xml'
     Params = <>
-    Left = 56
-    Top = 32
+    Left = 126
+    Top = 46
   end
   object Employee: TClientDataSet
     Aggregates = <>
@@ -634,8 +669,8 @@ object fReporterDemoMain: TfReporterDemoMain
     MasterSource = dsOrders
     PacketRecords = 0
     Params = <>
-    Left = 88
-    Top = 32
+    Left = 228
+    Top = 46
   end
   object Items: TClientDataSet
     Aggregates = <>
@@ -645,8 +680,8 @@ object fReporterDemoMain: TfReporterDemoMain
     MasterSource = dsOrders
     PacketRecords = 0
     Params = <>
-    Left = 120
-    Top = 32
+    Left = 316
+    Top = 46
   end
   object Parts: TClientDataSet
     Aggregates = <>
@@ -656,8 +691,8 @@ object fReporterDemoMain: TfReporterDemoMain
     MasterSource = dsItems
     PacketRecords = 0
     Params = <>
-    Left = 152
-    Top = 32
+    Left = 404
+    Top = 46
   end
   object OrderHistory: TADOQuery
     ConnectionString = 'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=dbdemos.mdb'
@@ -671,7 +706,7 @@ object fReporterDemoMain: TfReporterDemoMain
         'FROM customer INNER JOIN orders ON customer.CustNo = orders.Cust' +
         'No'
       'ORDER BY customer.CustNo, orders.OrderNo;')
-    Left = 192
-    Top = 32
+    Left = 500
+    Top = 158
   end
 end

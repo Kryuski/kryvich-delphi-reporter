@@ -68,3 +68,4 @@ __recovery/
 # KDR specific files
 Docs/
 *.dproj
+clear.cmd

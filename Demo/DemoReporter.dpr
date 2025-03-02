@@ -3,8 +3,8 @@ program DemoReporter;
 uses
   Forms,
   uMain in 'uMain.pas' {fReporterDemoMain},
-  uFreeReporter in '..\uFreeReporter.pas',
-  uDbFreeReporter in '..\uDbFreeReporter.pas';
+  KDR.Reporter in '..\KDR.Reporter.pas',
+  KDR.DbReporter in '..\KDR.DbReporter.pas';
 
 {$R *.res}
 
