@@ -12,7 +12,7 @@ interface
 uses Classes;
 
 const
-  Version = '3.2'; // Kryvich's Delphi Reporter version
+  Version = '3.2.1'; // Kryvich's Delphi Reporter version
 
 type
   // Fires when the parser reaches the {for} tag in the template.
@@ -23,7 +23,8 @@ type
   // The event handler determines whether the reporter should stop iterating.
   TEndTagProc = function: Boolean of object;
   // Template & output document type
-  TDocType = (dtAutoDetect, dtTxt, dtRtf, dtHtml, dtXml);
+  // dtXmlSpreedsheet - Excel XML Spreedsheet 2003
+  TDocType = (dtAutoDetect, dtTxt, dtRtf, dtHtml, dtXml, dtXmlSpreedsheet);
   // Template & report file encoding
   TCharEncoding = (ceAutoDetect, ceAnsi, ceUtf8);
 
@@ -64,9 +65,11 @@ uses SysUtils, Variants, StrUtils, Character;
 
 resourcestring
   rsNoClosingBracket = 'Closing bracket "}" not found. Check template!';
-  rsForTagNotFound = 'No matching {for} tag found for {end} tag'#13+
+  rsEmptyTagFound = 'Empty tag found. Check template!';
+  rsBadXmlTemplate = 'Bad formatted XML template. Check template!';
+  rsForTagNotFound = 'No matching {for} tag found for {end} tag. '+
     'Check template!';
-  rsNoClosingEnd = 'No closing {end} tag found for {for} tag.'#13+
+  rsNoClosingEnd = 'No closing {end} tag found for {for} tag. '+
     'Check template!';
 
 type
@@ -106,6 +109,112 @@ begin
   end;
 end;
 
+// Detects document type by file name
+function DetectDocType(const FileName: string): TDocType;
+var
+  s: string;
+begin
+  s := LowerCase(Copy(FileName, Length(FileName)-3, 4));
+  if (s = '.rtf') or (s = '.doc') then
+    Result := dtRtf
+  else if s = '.xml' then
+    Result := dtXml
+  else if s = '.txt' then
+    Result := dtTxt
+  else
+    Result := dtHtml;
+end;
+
+// Detects file encoding based on document type
+function DetectCharEncoding(DocType: TDocType): TCharEncoding;
+begin
+  Assert(DocType <> dtAutoDetect);
+  if DocType in [dtTxt, dtRtf] then
+    Result := ceAnsi
+  else
+    Result := ceUtf8;
+end;
+
+// Clarifies the type of a XML template based on its contents
+procedure ClarifyXmlDocType(var DocType: TDocType; Buf: RawByteString);
+begin
+  if Pos(RawByteString('<?mso-application progid="Excel.Sheet"?>'),
+    Copy(Buf, 1, 100)) > 0
+  then
+    DocType := dtXmlSpreedsheet;
+end;
+
+// Strips RTF formatting from a tag string
+function StripRtfFormatting(const s: string): string;
+var
+  i: Integer;
+  ch: AnsiChar;
+begin
+  Result := '';
+  i := 1;
+  while i <= Length(s) do begin
+    case s[i] of
+      #0..#31, '{', '}':; // Ignore RTF-formatting
+      '\': begin
+        Inc(i);
+        if s[i] = '''' then begin // \'ee --> non-ASCII character
+          Inc(i);
+          HexToBin(PWideChar(@s[i]), @ch, 1);
+          Result := Result + string(ch);
+          Inc(i);
+        end else begin
+          while (i <= Length(s))
+            and not CharInSet(s[i], [' ', '\', '{', '}'])
+          do
+            Inc(i);
+          if (i <= Length(s)) and (s[i] = '\') then
+            Continue;
+        end;
+      end;
+      else Result := Result + s[i];
+    end;
+    Inc(i);
+  end;
+end;
+
+// Strips XML formatting from a tag string
+function StripXmlFormatting(const s: string): string;
+var
+  i, i1: Integer;
+begin
+  Result := s;
+  i := 1;
+  repeat
+    i := PosEx('<', Result, i);
+    if i <= 0 then
+      Break;
+    i1 := PosEx('>', Result, i);
+    if i1 <= 0 then
+      raise TReporterException.Create(rsBadXmlTemplate);
+    Delete(Result, i, i1-i+1);
+  until False;
+end;
+
+// Finds SubStr in Str between StrBefore and StrAfter, starting at Offset.
+// If found, Returns the positions of Str, StrBefore and StrAfter.
+function FindBetween(const SubStr, Str, StrBefore, StrAfter: string;
+  Offset: Integer; out StrPos, StrBeforePos, StrAfterPos: Integer): Boolean;
+var
+  i: Integer;
+begin
+  Result := False;
+  StrBeforePos := Pos(StrBefore, Str, Offset);
+  if StrBeforePos <= 0 then
+    Exit;
+  i := StrBeforePos + Length(StrBefore);
+  StrAfterPos := PosEx(StrAfter, Str, i);
+  if StrAfterPos <= 0 then
+    Exit;
+  StrPos := PosEx(SubStr, Str, i);
+  Result := (StrPos > 0)
+    and (StrPos < StrAfterPos);
+end;
+
 { TReporter }
 
 constructor TReporter.Create;
@@ -136,42 +245,12 @@ begin
       Result := Result + '\' + AnsiChar(ch)
     else if Word(ch) <= 127 then
       Result := Result + AnsiChar(ch)
-    else begin
-      (*// non-ASCII character --> \'ee
-      Result := Result + '\''  ';
-      BinToHex(PAnsiChar(@ch), PAnsiChar(@Result[Length(Result)-1]), 1);*)
-      // character #21487 --> \uc1\u21487
-      Result := Result + '\uc1\u' + RawByteString(Word(ch).ToString);
-    end;
+    else
+      Result := Result + {\uc1}'\u' + RawByteString(Word(ch).ToString) + '?';
   end;
 end;
 
 procedure TReporter.CreateReport(const TemplateFileName, OutputFileName: string);
-
-  function DetectDocType(const TemplateFileName: string): TDocType;
-  var
-    s: string;
-  begin
-    s := LowerCase(Copy(TemplateFileName, Length(TemplateFileName)-3, 4));
-    if (s = '.rtf') or (s = '.doc') then
-      Result := dtRtf
-    else if s = '.xml' then
-      Result := dtXml
-    else if s = '.txt' then
-      Result := dtTxt
-    else
-      Result := dtHtml;
-  end;
-
-  function DetectCharEncoding: TCharEncoding;
-  begin
-    Assert(DocType <> dtAutoDetect);
-    if DocType in [dtTxt, dtRtf] then
-      Result := ceAnsi
-    else
-      Result := ceUtf8;
-  end;
-
 var
   fs: TFileStream;
 
@@ -229,10 +308,6 @@ var
   end;
 
 begin
-  if fDocType = dtAutoDetect then
-    fDocType := DetectDocType(TemplateFileName);
-  if fCharEncoding = ceAutoDetect then
-    fCharEncoding := DetectCharEncoding;
   LoadTemplate(TemplateFileName);
   fs := TFileStream.Create(OutputFileName, fmCreate);
   try
@@ -244,52 +319,11 @@ end;
 
 procedure TReporter.LoadTemplate(const TemplateFileName: string);
 
-  // Extracts RTF formatting from template tag string
-  procedure ExtractRtfFormatting(const s: string; out Tag, Formatting: string);
-  var
-    i, i1, diff: Integer;
-    ch: AnsiChar;
-  begin
-    Tag := '';
-    Formatting := '';
-    diff := 0;
-    i := 1;
-    while i <= Length(s) do begin
-      case s[i] of
-        #0..#31, '{', '}': Formatting := Formatting + s[i];
-        '\': begin
-          i1 := i;
-          Inc(i);
-          if s[i] = '''' then begin // \'ee --> non-ASCII character
-            Inc(i);
-            HexToBin(PWideChar(@s[i]), @ch, 1);
-            Tag := Tag + string(ch);
-            Inc(diff, 3);
-            Inc(i);
-          end else begin
-            while (i <= Length(s))
-              and not CharInSet(s[i], [' ', '\', '{', '}'])
-            do
-              Inc(i);
-            Formatting := Formatting + Copy(s, i1, i-i1);
-            if (i <= Length(s)) and (s[i] = '\') then
-              Continue;
-            Formatting := Formatting + Copy(s, i, 1);
-          end;
-        end;
-        else Tag := Tag + s[i];
-      end;
-      Inc(i);
-    end;
-    Assert(Length(Tag) + Length(Formatting) + diff = Length(s),
-      'Reporter: Internal error #01');
-  end;
-
   // Retrieves next reporter tag from template
   function GetNextTag(iStart: Integer; out iTagPos, iAfter: Integer;
     out ChunkKind: TChunkKind; out Param: string): Boolean;
   var
-    tag, formatting, s: string;
+    tag, s: string;
   begin
     iTagPos := PosEx('\{', Template, iStart);
     Result := iTagPos > 0;
@@ -300,20 +334,16 @@ procedure TReporter.LoadTemplate(const TemplateFileName: string);
     if iAfter <= 0 then
       raise TReporterException.Create(rsNoClosingBracket);
     s := Copy(Template, iStart, iAfter-iStart);
-    if DocType = dtRtf then begin
-      ExtractRtfFormatting(s, tag, formatting);
-      if formatting <> '' then begin
-        // Move formatting behind the tag name in template
-        Move(tag[1], Template[iStart], Length(tag)*SizeOf(Char));
-        Move(Template[iAfter], Template[iStart+Length(tag)], 2*SizeOf(Char)); // '\}'
-        Move(formatting[1], Template[iStart+Length(tag)+2],
-          Length(formatting)*SizeOf(Char));
-        iAfter := iStart+Length(tag);
-      end;
-    end else
-      tag := s;
+    case DocType of
+      dtRtf: tag := StripRtfFormatting(s);
+      dtXml: tag := StripXmlFormatting(s);
+      else tag := s;
+    end;
     Inc(iAfter, 2);
-    s := NormalizeSpaces(LowerCase(tag));
+    tag := NormalizeSpaces(tag);
+    if tag = '' then
+      raise TReporterException.Create(rsEmptyTagFound);
+    s := LowerCase(tag);
     if (Length(s) > 4)
       and (Copy(s, 1, 4) = 'for ')
     then begin
@@ -353,13 +383,20 @@ begin
   try
     SetLength(buf, fs.Size);
     fs.Read(buf[1], fs.Size);
-    if CharEncoding = ceAnsi then
-      Template := string(buf)
-    else
-      Template := UTF8ToString(buf);
   finally
     fs.Free;
   end;
+  if fDocType = dtAutoDetect then begin
+    fDocType := DetectDocType(TemplateFileName);
+    if fDocType = dtXml then
+      ClarifyXmlDocType(fDocType, buf);
+  end;
+  if fCharEncoding = ceAutoDetect then
+    fCharEncoding := DetectCharEncoding(fDocType);
+  if CharEncoding = ceAnsi then
+    Template := string(buf)
+  else
+    Template := UTF8ToString(buf);
   NewChunk(1, pkStaticText, '');
   i := 1;
   while i <= Length(Template) do begin

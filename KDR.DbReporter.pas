@@ -241,7 +241,7 @@ var
 
   function IntegerFieldText(fld: TIntegerField): string;
   begin
-    if (DocType = dtXML)
+    if (DocType = dtXmlSpreedsheet)
       or (FmtStr = '')
     then
       Result := IntToStr(Value)
@@ -255,7 +255,7 @@ var
     formatSettings: TFormatSettings;
     digits: Integer;
   begin
-    if DocType = dtXml then begin
+    if DocType = dtXmlSpreedsheet then begin
       format := ffGeneral;
       digits := 0;
       formatSettings.ThousandSeparator := #0;
@@ -278,7 +278,7 @@ var
   var
     format: string;
   begin
-    if DocType = dtXml then
+    if DocType = dtXmlSpreedsheet then
       format := 'yyyy-mm-ddThh:nn:ss.zzz'
     else if fld.DisplayFormat <> '' then
       format := fld.DisplayFormat
@@ -310,7 +310,7 @@ begin
     Result := DateTimeFieldText(TDateTimeField(Field))
   else
     Result := VarToStr(Value);
-  if DocType in [dtHtml, dtXML] then
+  if DocType in [dtHtml, dtXML, dtXmlSpreedsheet] then
     Result := TNetEncoding.HTML.Encode(Result);
 end;
 
