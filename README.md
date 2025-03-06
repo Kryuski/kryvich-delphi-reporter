@@ -1,4 +1,4 @@
-# Kryvich's Delphi Reporter 3.2
+# Kryvich's Delphi Reporter 3.2.1
 *Simple but powerful reporting tool for Embarcadero's (CodeGear, Borland) Delphi*
 
 It generates reports in TXT, RTF, HTML and XML formats based on custom templates and information from any TDataSet compatible data sets.
