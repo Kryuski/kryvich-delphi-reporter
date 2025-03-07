@@ -5,7 +5,7 @@
   Licensed under LGPLv3 or later: http://www.gnu.org/licenses/lgpl.html
 
   Neslib.Xml library is used.
-  https://github.com/neslib/Neslib.Xml
+  https://github.com/Kryuski/Neslib.Xml
 *)
 
 program PrepareSpreadsheetMLTemplate;
@@ -27,7 +27,6 @@ var
 begin
   node := Doc.DocumentElement;
   Result := (node.Value = 'Workbook')
-    and (node.AttributeByName('xmlns') <> nil)
     and (node.AttributeByName('xmlns').Value
       = 'urn:schemas-microsoft-com:office:spreadsheet');
 end;
@@ -73,13 +72,10 @@ begin
         cell := row.ElementByName('Cell');
         while cell <> nil do begin
           data := cell.ElementByName('Data');
-          if (data <> nil)
-            and (Pos('\{', data.Text) > 0)
-          then begin
+          if Pos('\{', data.Text) > 0 then begin
             attrType := data.AttributeByName('ss:Type');
-            if (attrType <> nil)
-              and ((attrType.Value = 'String')
-                or (attrType.Value = 'Error'))
+            if (attrType.Value = 'String')
+              or (attrType.Value = 'Error')
             then begin
               attrStyle := cell.AttributeByName('ss:StyleID');
               if attrStyle <> nil then begin
@@ -112,9 +108,76 @@ begin
   end;
 end;
 
+// Does the row start a loop?
+function RowStartsLoop(Row: TXmlNode): Boolean;
+var
+  cell, data: TXmlNode;
+begin
+  cell := row.ElementByName('Cell');
+  while cell <> nil do begin
+    data := cell.ElementByName('Data');
+    if (data <> nil)
+      and (Pos('\{for ', data.Text) > 0)
+    then
+      Exit(True);
+    cell := cell.NextSiblingByName('Cell');
+  end;
+  Result := False;
+end;
+
+// Inserts an empty row before the specified row
+procedure InsertRowBefore(Row: TXmlNode);
+var
+  newRow, cell, data: TXmlNode;
+begin
+  newRow := Row.Parent.InsertBefore(TXmlNodeType.Element, 'Row', Row);
+  cell := newRow.AddChild(TXmlNodeType.Element, 'Cell');
+  data := cell.AddChild(TXmlNodeType.Element, 'Data');
+  data.AddAttribute('ss:Type', 'String');
+end;
+
+procedure ReindexRows;
+var
+  worksheet, table, row: TXmlNode;
+  attrIndex: TXmlAttribute;
+  doReindex: Boolean;
+  rowNo, rowNoOld: Integer;
+begin
+  worksheet := Doc.DocumentElement.ElementByName('Worksheet');
+  while worksheet <> nil do begin
+    table := worksheet.ElementByName('Table');
+    while table <> nil do begin
+      row := table.ElementByName('Row');
+      doReindex := False;
+      rowNo := 1;
+      while row <> nil do begin
+        rowNoOld := rowNo;
+        attrIndex := row.AttributeByName('ss:Index');
+        if attrIndex <> nil then
+          rowNo := attrIndex.Value.ToInteger;
+        doReindex := doReindex
+          or RowStartsLoop(row.PrevSiblingByName('Row'));
+        if doReindex
+          and (rowNoOld < rowNo)
+        then begin
+          for rowNoOld := rowNoOld+1 to rowNo do
+            InsertRowBefore(row);
+          row.RemoveAttribute(attrIndex);
+          DocIsModified := True;
+        end;
+        Inc(rowNo);
+        row := row.NextSiblingByName('Row');
+      end;
+      table := table.NextSiblingByName('Table');
+    end;
+    worksheet := worksheet.NextSiblingByName('Worksheet');
+  end;
+end;
+
 var
   FileName, BackupFileName: string;
 begin
+  ReportMemoryLeaksOnShutdown := True;
   try
     if ParamCount < 1 then begin
       Writeln('Prepares SpreadsheetML file from Excel for use by KDR as a template.');
@@ -132,6 +195,7 @@ begin
       raise Exception.Create('This is not a SpreadsheetML XML file.');
     RemoveTableAttributes;
     RestoreDataNumberType;
+    ReindexRows;
     if DocIsModified then begin
       BackupFileName := FileName + '.bak';
       if FileExists(BackupFileName) then
