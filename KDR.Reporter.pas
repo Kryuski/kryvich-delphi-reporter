@@ -138,8 +138,8 @@ end;
 // Clarifies the type of a XML template based on its contents
 procedure ClarifyXmlDocType(var DocType: TDocType; Buf: RawByteString);
 begin
-  if Pos(RawByteString('<?mso-application progid="Excel.Sheet"?>'),
-    Copy(Buf, 1, 100)) > 0
+  if Pos(RawByteString('xmlns="urn:schemas-microsoft-com:office:spreadsheet"'),
+    Copy(Buf, 1, 200)) > 0
   then
     DocType := dtXmlSpreedsheet;
 end;
@@ -185,10 +185,10 @@ begin
   Result := s;
   i := 1;
   repeat
-    i := PosEx('<', Result, i);
+    i := Pos('<', Result, i);
     if i <= 0 then
       Break;
-    i1 := PosEx('>', Result, i);
+    i1 := Pos('>', Result, i);
     if i1 <= 0 then
       raise TReporterException.Create(rsBadXmlTemplate);
     Delete(Result, i, i1-i+1);
@@ -207,10 +207,10 @@ begin
   if StrBeforePos <= 0 then
     Exit;
   i := StrBeforePos + Length(StrBefore);
-  StrAfterPos := PosEx(StrAfter, Str, i);
+  StrAfterPos := Pos(StrAfter, Str, i);
   if StrAfterPos <= 0 then
     Exit;
-  StrPos := PosEx(SubStr, Str, i);
+  StrPos := Pos(SubStr, Str, i);
   Result := (StrPos > 0)
     and (StrPos < StrAfterPos);
 end;
@@ -325,12 +325,12 @@ procedure TReporter.LoadTemplate(const TemplateFileName: string);
   var
     tag, s: string;
   begin
-    iTagPos := PosEx('\{', Template, iStart);
+    iTagPos := Pos('\{', Template, iStart);
     Result := iTagPos > 0;
     if not Result then
       Exit;
     iStart := iTagPos + 2;
-    iAfter := PosEx('\}', Template, iStart);
+    iAfter := Pos('\}', Template, iStart);
     if iAfter <= 0 then
       raise TReporterException.Create(rsNoClosingBracket);
     s := Copy(Template, iStart, iAfter-iStart);

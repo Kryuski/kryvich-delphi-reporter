@@ -279,7 +279,7 @@ var
     format: string;
   begin
     if DocType = dtXmlSpreedsheet then
-      format := 'yyyy-mm-ddThh:nn:ss.zzz'
+      format := 'yyyy-mm-dd"T"hh:nn:ss.zzz'
     else if fld.DisplayFormat <> '' then
       format := fld.DisplayFormat
     else
