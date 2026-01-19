@@ -4,7 +4,7 @@
   https://github.com/Kryuski/kryvich-delphi-reporter
   Licensed under LGPLv3 or later: http://www.gnu.org/licenses/lgpl.html
 
-  Neslib.Xml library is used.
+  Modified Neslib.Xml library is used:
   https://github.com/Kryuski/Neslib.Xml
 *)
 
@@ -85,7 +85,11 @@ begin
                   numberFormat := style.ElementByName('NumberFormat');
                   if numberFormat <> nil then begin
                     sFormat := numberFormat.AttributeByName('ss:Format').Value;
-                    if (sFormat = 'Standard')
+                    if (sFormat = '')
+                      or (sFormat = '@')
+                    then
+                      // It's a String
+                    else if (sFormat = 'Standard')
                       or (Pos('0', sFormat) > 0)
                       or (Pos('#', sFormat) > 0)
                     then
